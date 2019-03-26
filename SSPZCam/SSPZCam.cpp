@@ -17,6 +17,7 @@ using namespace std::placeholders;
 SSPZCam::SSPZCam(std::string ip1, std::string ip2)
 {
 	setCameraIps(ip1, ip2);
+	//setCameraIps("10.0.0.1", "10.0.0.2");
 }
 SSPZCam::~SSPZCam()
 {
@@ -26,19 +27,22 @@ SSPZCam::~SSPZCam()
 CVideoCodec*        m_pLeftCodec;
 CVideoCodec*        m_pRightCodec;
 FILE* fp = 0;
+FILE* fp1 = 0;
 
 void on_264_1(struct imf::SspH264Data *h264)
 {
-	printf("on 1 264 [%d] [%lld] [%d] [%d]\n", h264->frm_no, h264->data, h264->type, h264->len);
+	//printf("on 1 264 [%d] [%lld] [%d] [%d]\n", h264->frm_no, h264->data, h264->type, h264->len);
 	video_data *frame = new video_data;
+	//if (fp)
+	//	fwrite(h264->data, 1, h264->len, fp);
 
 	if (m_pLeftCodec->decodeFrame(h264->data, h264->len))
 	{
-		printf("fNo:%d, decoded size:%lld\n", h264->frm_no, m_pLeftCodec->m_nOutBuffDec);
+		//printf("fNo:%d, decoded size:%lld\n", h264->frm_no, m_pLeftCodec->m_nOutBuffDec);
 
-		frame->data[0] = m_pRightCodec->m_pOutBuffDec;
-		frame->data[1] = m_pRightCodec->m_pOutBuffDec + leftOutput->width * leftOutput->height;
-		frame->data[2] = m_pRightCodec->m_pOutBuffDec + leftOutput->width * leftOutput->height + leftOutput->width * leftOutput->height / 4;
+		frame->data[0] = m_pLeftCodec->m_pOutBuffDec;
+		frame->data[1] = m_pLeftCodec->m_pOutBuffDec + leftOutput->width * leftOutput->height;
+		frame->data[2] = m_pLeftCodec->m_pOutBuffDec + leftOutput->width * leftOutput->height + leftOutput->width * leftOutput->height / 4;
 
 
 		frame->linesize[0] = leftOutput->width;
@@ -47,29 +51,29 @@ void on_264_1(struct imf::SspH264Data *h264)
 		frame->timestamp = h264->ntp_timestamp;
 		
 		virtual_video(leftOutput, frame);
-
-		//if (fp && m_pVideoCodec->encodeFrame(m_pVideoCodec->m_pOutBuffDec))
-		//{
-		//	printf("fNo:%d, encoded size:%lld\n", h264->frm_no, m_pVideoCodec->m_nOutBuffEnc);
-		//	fwrite(m_pVideoCodec->m_pOutBuffEnc, 1, m_pVideoCodec->m_nOutBuffEnc, fp);
-		//}
+		/*
+		if (fp && m_pLeftCodec->encodeFrame(m_pLeftCodec->m_pOutBuffDec))
+		{
+			printf("fNo:%d, encoded size:%lld\n", h264->frm_no, m_pLeftCodec->m_nOutBuffEnc);
+			fwrite(m_pLeftCodec->m_pOutBuffEnc, 1, m_pLeftCodec->m_nOutBuffEnc, fp);
+		}*/
 	}
 	delete frame;
 }
 
 void on_264_2(struct imf::SspH264Data *h264)
 {
-	printf("on 2 264 [%d] [%lld] [%d] [%d]\n", h264->frm_no, h264->data, h264->type, h264->len);
+	//printf("on 2 264 [%d] [%lld] [%d] [%d]\n", h264->frm_no, h264->data, h264->type, h264->len);
 	video_data *frame = new video_data;
-
+	//if (fp)
+		//fwrite(h264->data, 1, h264->len, fp);
 	if (m_pRightCodec->decodeFrame(h264->data, h264->len))
 	{
-		printf("fNo:%d, decoded size:%lld\n", h264->frm_no, m_pRightCodec->m_nOutBuffDec);
+		//printf("fNo:%d, decoded size:%lld\n", h264->frm_no, m_pRightCodec->m_nOutBuffDec);
 
 		frame->data[0] = m_pRightCodec->m_pOutBuffDec;
 		frame->data[1] = m_pRightCodec->m_pOutBuffDec + rightOutput->width * rightOutput->height;
 		frame->data[2] = m_pRightCodec->m_pOutBuffDec + rightOutput->width * rightOutput->height + rightOutput->width * rightOutput->height / 4;
-
 
 		frame->linesize[0] = rightOutput->width;
 		frame->linesize[1] = rightOutput->width / 2;
@@ -77,11 +81,13 @@ void on_264_2(struct imf::SspH264Data *h264)
 		frame->timestamp = h264->ntp_timestamp;
 		virtual_video(rightOutput, frame);
 
-		//if (fp && m_pVideoCodec->encodeFrame(m_pVideoCodec->m_pOutBuffDec))
-		//{
-		//	printf("fNo:%d, encoded size:%lld\n", h264->frm_no, m_pVideoCodec->m_nOutBuffEnc);
-		//	fwrite(m_pVideoCodec->m_pOutBuffEnc, 1, m_pVideoCodec->m_nOutBuffEnc, fp);
-		//}
+		/*
+		if (fp1 && m_pRightCodec->encodeFrame(m_pRightCodec->m_pOutBuffDec))
+		{
+			printf("fNo:%d, encoded size:%lld\n", h264->frm_no, m_pRightCodec->m_nOutBuffEnc);
+			fwrite(m_pRightCodec->m_pOutBuffEnc, 1, m_pRightCodec->m_nOutBuffEnc, fp1);
+		}
+		*/
 	}
 	delete frame;
 }
@@ -148,13 +154,15 @@ void setup(imf::Loop *loop)
 		delete rightCamClient;
 		rightCamClient = NULL;
 	}
+
 	//left camera client
 	leftCamClient = new imf::SspClient(leftCamIp, loop, 0x400000);
 	leftCamClient->init();
 
 
 	//for testing
-	//fp = fopen( "test.h264", "wb" );
+	fp = fopen( "test.h264", "wb" );
+	fp1 = fopen("test1.h264", "wb");
 
 	leftCamClient->setOnH264DataCallback(std::bind(&on_264_1, _1));
 	leftCamClient->setOnMetaCallback(std::bind(&on_meta_1, _1, _2, _3));

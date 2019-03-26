@@ -17,27 +17,15 @@ c:\users\test-pc\desktop\dev-k1-pro-app-master\sspzcam\h264\videocodec.h(76): wa
 c:\users\test-pc\desktop\dev-k1-pro-app-master\sspzcam\h264\videocodec.h(77): warning C4838: conversion from 'int' to 'unsigned int' requires a narrowing conversion
 c:\users\test-pc\desktop\dev-k1-pro-app-master\sspzcam\sspzcam.cpp(18): warning C4273: 'SSPZCam::SSPZCam': inconsistent dll linkage
   c:\users\test-pc\desktop\dev-k1-pro-app-master\sspzcam\sspzcam.h(45): note: see previous definition of '{ctor}'
-c:\users\test-pc\desktop\dev-k1-pro-app-master\sspzcam\sspzcam.cpp(22): warning C4273: 'SSPZCam::~SSPZCam': inconsistent dll linkage
+c:\users\test-pc\desktop\dev-k1-pro-app-master\sspzcam\sspzcam.cpp(23): warning C4273: 'SSPZCam::~SSPZCam': inconsistent dll linkage
   c:\users\test-pc\desktop\dev-k1-pro-app-master\sspzcam\sspzcam.h(46): note: see previous definition of '{dtor}'
-c:\users\test-pc\desktop\dev-k1-pro-app-master\sspzcam\sspzcam.cpp(32): warning C4477: 'printf' : format string '%lld' requires an argument of type '__int64', but variadic argument 2 has type 'uint8_t *'
-c:\users\test-pc\desktop\dev-k1-pro-app-master\sspzcam\sspzcam.cpp(32): warning C4477: 'printf' : format string '%d' requires an argument of type 'int', but variadic argument 4 has type 'size_t'
-  c:\users\test-pc\desktop\dev-k1-pro-app-master\sspzcam\sspzcam.cpp(32): note: consider using '%zd' in the format string
-c:\users\test-pc\desktop\dev-k1-pro-app-master\sspzcam\sspzcam.cpp(35): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-c:\users\test-pc\desktop\dev-k1-pro-app-master\sspzcam\sspzcam.cpp(37): warning C4477: 'printf' : format string '%lld' requires an argument of type '__int64', but variadic argument 2 has type 'int'
-  c:\users\test-pc\desktop\dev-k1-pro-app-master\sspzcam\sspzcam.cpp(37): note: consider using '%d' in the format string
-  c:\users\test-pc\desktop\dev-k1-pro-app-master\sspzcam\sspzcam.cpp(37): note: consider using '%I32d' in the format string
-c:\users\test-pc\desktop\dev-k1-pro-app-master\sspzcam\sspzcam.cpp(62): warning C4477: 'printf' : format string '%lld' requires an argument of type '__int64', but variadic argument 2 has type 'uint8_t *'
-c:\users\test-pc\desktop\dev-k1-pro-app-master\sspzcam\sspzcam.cpp(62): warning C4477: 'printf' : format string '%d' requires an argument of type 'int', but variadic argument 4 has type 'size_t'
-  c:\users\test-pc\desktop\dev-k1-pro-app-master\sspzcam\sspzcam.cpp(62): note: consider using '%zd' in the format string
-c:\users\test-pc\desktop\dev-k1-pro-app-master\sspzcam\sspzcam.cpp(65): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-c:\users\test-pc\desktop\dev-k1-pro-app-master\sspzcam\sspzcam.cpp(67): warning C4477: 'printf' : format string '%lld' requires an argument of type '__int64', but variadic argument 2 has type 'int'
-  c:\users\test-pc\desktop\dev-k1-pro-app-master\sspzcam\sspzcam.cpp(67): note: consider using '%d' in the format string
-  c:\users\test-pc\desktop\dev-k1-pro-app-master\sspzcam\sspzcam.cpp(67): note: consider using '%I32d' in the format string
-c:\users\test-pc\desktop\dev-k1-pro-app-master\sspzcam\sspzcam.cpp(251): warning C4273: 'SSPZCam::setCameraIps': inconsistent dll linkage
+c:\users\test-pc\desktop\dev-k1-pro-app-master\sspzcam\sspzcam.cpp(39): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+c:\users\test-pc\desktop\dev-k1-pro-app-master\sspzcam\sspzcam.cpp(70): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+c:\users\test-pc\desktop\dev-k1-pro-app-master\sspzcam\sspzcam.cpp(259): warning C4273: 'SSPZCam::setCameraIps': inconsistent dll linkage
   c:\users\test-pc\desktop\dev-k1-pro-app-master\sspzcam\sspzcam.h(49): note: see previous definition of 'setCameraIps'
-c:\users\test-pc\desktop\dev-k1-pro-app-master\sspzcam\sspzcam.cpp(257): warning C4273: 'SSPZCam::threadLooperStop': inconsistent dll linkage
+c:\users\test-pc\desktop\dev-k1-pro-app-master\sspzcam\sspzcam.cpp(265): warning C4273: 'SSPZCam::threadLooperStop': inconsistent dll linkage
   c:\users\test-pc\desktop\dev-k1-pro-app-master\sspzcam\sspzcam.h(48): note: see previous definition of 'threadLooperStop'
-c:\users\test-pc\desktop\dev-k1-pro-app-master\sspzcam\sspzcam.cpp(266): warning C4273: 'SSPZCam::threadLooperStart': inconsistent dll linkage
+c:\users\test-pc\desktop\dev-k1-pro-app-master\sspzcam\sspzcam.cpp(274): warning C4273: 'SSPZCam::threadLooperStart': inconsistent dll linkage
   c:\users\test-pc\desktop\dev-k1-pro-app-master\sspzcam\sspzcam.h(47): note: see previous definition of 'threadLooperStart'
      Creating library C:\Users\Test-PC\Desktop\Dev-K1-Pro-App-master\x64\Release\SSPZCam.lib and object C:\Users\Test-PC\Desktop\Dev-K1-Pro-App-master\x64\Release\SSPZCam.exp
   Generating code
