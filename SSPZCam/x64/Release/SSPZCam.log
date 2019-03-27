@@ -1,34 +1,26 @@
 ﻿  stdafx.cpp
   dllmain.cpp
+  AVCodec.cpp
   VideoCodec.cpp
-c:\users\test-pc\desktop\dev-k1-pro-app-master\sspzcam\h264\videocodec.h(76): warning C4838: conversion from 'int' to 'unsigned int' requires a narrowing conversion
-c:\users\test-pc\desktop\dev-k1-pro-app-master\sspzcam\h264\videocodec.h(77): warning C4838: conversion from 'int' to 'unsigned int' requires a narrowing conversion
-c:\users\test-pc\desktop\dev-k1-pro-app-master\sspzcam\h264\videocodec.cpp(45): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
   share_queue_read.cpp
-c:\users\test-pc\desktop\dev-k1-pro-app-master\sspzcam\queue\share_queue_read.cpp(145): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-c:\users\test-pc\desktop\dev-k1-pro-app-master\sspzcam\queue\share_queue_read.cpp(151): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+c:\users\test-pc\desktop\dev-k1-pro-app-master\sspzcam\queue\share_queue_read.cpp(144): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+c:\users\test-pc\desktop\dev-k1-pro-app-master\sspzcam\queue\share_queue_read.cpp(150): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
   share_queue_write.cpp
   SSPZCam.cpp
-c:\users\test-pc\desktop\dev-k1-pro-app-master\sspzcam\h264\include\common\inc\typedefs.h(68): warning C4005: 'PRId64': macro redefinition
-  c:\program files (x86)\windows kits\10\include\10.0.17763.0\ucrt\inttypes.h(113): note: see previous definition of 'PRId64'
-c:\users\test-pc\desktop\dev-k1-pro-app-master\sspzcam\h264\include\common\inc\macros.h(215): warning C4005: 'DISALLOW_COPY_AND_ASSIGN': macro redefinition
-  c:\users\test-pc\desktop\dev-k1-pro-app-master\sspzcam\include\imf\base\constructormagic.h(11): note: see previous definition of 'DISALLOW_COPY_AND_ASSIGN'
-c:\users\test-pc\desktop\dev-k1-pro-app-master\sspzcam\h264\videocodec.h(76): warning C4838: conversion from 'int' to 'unsigned int' requires a narrowing conversion
-c:\users\test-pc\desktop\dev-k1-pro-app-master\sspzcam\h264\videocodec.h(77): warning C4838: conversion from 'int' to 'unsigned int' requires a narrowing conversion
 c:\users\test-pc\desktop\dev-k1-pro-app-master\sspzcam\sspzcam.cpp(18): warning C4273: 'SSPZCam::SSPZCam': inconsistent dll linkage
   c:\users\test-pc\desktop\dev-k1-pro-app-master\sspzcam\sspzcam.h(45): note: see previous definition of '{ctor}'
 c:\users\test-pc\desktop\dev-k1-pro-app-master\sspzcam\sspzcam.cpp(23): warning C4273: 'SSPZCam::~SSPZCam': inconsistent dll linkage
   c:\users\test-pc\desktop\dev-k1-pro-app-master\sspzcam\sspzcam.h(46): note: see previous definition of '{dtor}'
-c:\users\test-pc\desktop\dev-k1-pro-app-master\sspzcam\sspzcam.cpp(39): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-c:\users\test-pc\desktop\dev-k1-pro-app-master\sspzcam\sspzcam.cpp(70): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-c:\users\test-pc\desktop\dev-k1-pro-app-master\sspzcam\sspzcam.cpp(259): warning C4273: 'SSPZCam::setCameraIps': inconsistent dll linkage
+c:\users\test-pc\desktop\dev-k1-pro-app-master\sspzcam\sspzcam.cpp(35): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+c:\users\test-pc\desktop\dev-k1-pro-app-master\sspzcam\sspzcam.cpp(47): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+c:\users\test-pc\desktop\dev-k1-pro-app-master\sspzcam\sspzcam.cpp(223): warning C4273: 'SSPZCam::setCameraIps': inconsistent dll linkage
   c:\users\test-pc\desktop\dev-k1-pro-app-master\sspzcam\sspzcam.h(49): note: see previous definition of 'setCameraIps'
-c:\users\test-pc\desktop\dev-k1-pro-app-master\sspzcam\sspzcam.cpp(265): warning C4273: 'SSPZCam::threadLooperStop': inconsistent dll linkage
+c:\users\test-pc\desktop\dev-k1-pro-app-master\sspzcam\sspzcam.cpp(229): warning C4273: 'SSPZCam::threadLooperStop': inconsistent dll linkage
   c:\users\test-pc\desktop\dev-k1-pro-app-master\sspzcam\sspzcam.h(48): note: see previous definition of 'threadLooperStop'
-c:\users\test-pc\desktop\dev-k1-pro-app-master\sspzcam\sspzcam.cpp(274): warning C4273: 'SSPZCam::threadLooperStart': inconsistent dll linkage
+c:\users\test-pc\desktop\dev-k1-pro-app-master\sspzcam\sspzcam.cpp(238): warning C4273: 'SSPZCam::threadLooperStart': inconsistent dll linkage
   c:\users\test-pc\desktop\dev-k1-pro-app-master\sspzcam\sspzcam.h(47): note: see previous definition of 'threadLooperStart'
      Creating library C:\Users\Test-PC\Desktop\Dev-K1-Pro-App-master\x64\Release\SSPZCam.lib and object C:\Users\Test-PC\Desktop\Dev-K1-Pro-App-master\x64\Release\SSPZCam.exp
   Generating code
-  All 555 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  All 560 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
   Finished generating code
   SSPZCam.vcxproj -> C:\Users\Test-PC\Desktop\Dev-K1-Pro-App-master\x64\Release\SSPZCam.dll

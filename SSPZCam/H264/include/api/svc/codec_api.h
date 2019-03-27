@@ -368,6 +368,7 @@ class ISVCDecoder {
   virtual DECODING_STATE EXTAPI DecodeFrame (const unsigned char* pSrc,
       const int iSrcLen,
       unsigned char** ppDst,
+
       int* pStride,
       int& iWidth,
       int& iHeight) = 0;

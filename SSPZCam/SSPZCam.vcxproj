@@ -147,10 +147,11 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>lib;H264/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>welsenc.lib;welsdec.lib;libssp.lib;swscale.lib;Winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>avcodec.lib;avutil.lib;avformat.lib;x264.lib;welsenc.lib;welsdec.lib;libssp.lib;swscale.lib;Winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="H264\AVCodec.h" />
     <ClInclude Include="H264\VideoCodec.h" />
     <ClInclude Include="queue\share_queue.h" />
     <ClInclude Include="queue\share_queue_read.h" />
@@ -161,6 +162,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp" />
+    <ClCompile Include="H264\AVCodec.cpp" />
     <ClCompile Include="H264\VideoCodec.cpp" />
     <ClCompile Include="queue\share_queue_read.cpp" />
     <ClCompile Include="queue\share_queue_write.cpp" />

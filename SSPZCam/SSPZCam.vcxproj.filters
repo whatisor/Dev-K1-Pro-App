@@ -42,6 +42,9 @@
     <ClInclude Include="H264\VideoCodec.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="H264\AVCodec.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -60,6 +63,9 @@
       <Filter>Source Files\queue</Filter>
     </ClCompile>
     <ClCompile Include="H264\VideoCodec.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="H264\AVCodec.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -6,10 +6,10 @@ bool shared_queue_create(share_queue* q, int mode, int format,
 {
 	if (!q)
 		return false;
-
+	
 	if (!shared_queue_check(mode))
 		return false;
-
+	
 	int frame_size = 0;
 	int buffer_size = 0;
 	const char* name = get_mapping_name(mode);
@@ -170,7 +170,7 @@ bool shared_queue_check(int mode)
 {
 	HANDLE hwnd = NULL;
 	const char *name = get_mapping_name(mode);
-	
+	printf("queue_name %s \n", name);
 	hwnd = OpenFileMappingA(FILE_MAP_ALL_ACCESS, FALSE, name);
 
 	if (hwnd) {

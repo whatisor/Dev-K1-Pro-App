@@ -1,112 +1,88 @@
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
+#include <string>
+#include <iostream>
 #include "VideoCodec.h"
 
-#define VBUF_SIZE 4915200
+using namespace std;
 
-CVideoCodec::CVideoCodec(void)
+CVideoCodec::CVideoCodec()
 {
-	m_pOutBuffEnc = new unsigned char[VBUF_SIZE];
-	m_nOutBuffEnc = 0;
-
-	m_pOutBuffDec = new unsigned char[VBUF_SIZE];
-	m_nOutBuffEnc = 0;
-
-	m_width = 0;
-	m_height = 0;
-
-	m_encoder = 0;
-	m_decoder = 0;
+	m_pPicture = 0;
+	m_outBuf = 0;
 }
 
-
-CVideoCodec::~CVideoCodec(void)
+CVideoCodec::~CVideoCodec()
 {
-	delete m_pOutBuffDec;
+	if (m_pPicture)
+		delete m_pPicture;
+	if (m_outBuf)
+		delete m_outBuf;
 }
 
-bool CVideoCodec::init(int nWidth, int nHeight, int fps)
+void CVideoCodec::SetCodecParam(int bitRate, int width, int height, int gopSize, int bframePeriod, AVPixelFormat fmt)
 {
-	m_width = nWidth;
-	m_height = nHeight;
-
-	WelsCreateSVCEncoder(&m_encoder);
-	if (!m_encoder) return 0;
-	printf("created video codec h264 encode successfully.");
-
-	WelsCreateDecoder(&m_decoder);
-	if (!m_decoder) return 0;
-	printf("created video codec h264 decode successfully.");
-
-	long lRet;
-	memset(&m_encParam, 0, sizeof(SEncParamBase));
-	m_encParam.iUsageType = CAMERA_VIDEO_REAL_TIME;
-	m_encParam.fMaxFrameRate = fps;
-	m_encParam.iPicWidth = nWidth;
-	m_encParam.iPicHeight = nHeight;
-	m_encParam.iTargetBitrate = 320000;
-	lRet = m_encoder->Initialize(&m_encParam);
-	if (lRet != 0)return false;
-
-	memset(&m_decParam, 0, sizeof(SDecodingParam));
-	m_decParam.uiTargetDqLayer = UCHAR_MAX;
-	m_decParam.eEcActiveIdc = ERROR_CON_SLICE_COPY;
-	m_decParam.sVideoProperty.eVideoBsType = VIDEO_BITSTREAM_DEFAULT;
-	lRet=m_decoder->Initialize(&m_decParam);
-	if(lRet!=0)return false;
-
-	return true;
+	m_bitRate = bitRate;
+	m_width = width;
+	m_height = height;
+	m_gopSize = gopSize;
+	m_bframePeriod = bframePeriod;
+	m_pixFormat = fmt;
 }
 
-bool CVideoCodec::encodeFrame(unsigned char* pYUVData)
+bool CVideoCodec::InitDecode()
 {
-	memset(&m_frameInfo, 0, sizeof(SFrameBSInfo));
-
-	SSourcePicture pic;
-	memset(&pic, 0, sizeof(SSourcePicture));
-	pic.iPicWidth = m_encParam.iPicWidth;
-	pic.iPicHeight = m_encParam.iPicHeight;
-	pic.iColorFormat = videoFormatI420;
-	pic.iStride[0] = m_encParam.iPicWidth;
-	pic.iStride[1] = pic.iStride[2] = m_encParam.iPicWidth >> 1;
-	pic.pData[0] = pYUVData;
-	pic.pData[1] = pic.pData[0] + m_encParam.iPicWidth * m_encParam.iPicHeight;
-	pic.pData[2] = pic.pData[1] + (m_encParam.iPicWidth * m_encParam.iPicHeight >> 2);
-
-	int nRet = m_encoder->EncodeFrame(&pic, &m_frameInfo);
-	if (nRet != cmResultSuccess)return false;
-	if (m_frameInfo.eFrameType == videoFrameTypeSkip) return false;
-
-	memcpy(m_pOutBuffEnc, m_frameInfo.sLayerInfo[0].pBsBuf, m_frameInfo.iFrameSizeInBytes);
-	m_nOutBuffEnc = m_frameInfo.iFrameSizeInBytes;
-	return true;
-}
-
-bool CVideoCodec::decodeFrame(unsigned char* pData, int len)
-{
-	unsigned char* data[3] = {0};
-	SBufferInfo bufInfo={0};
-
-	DECODING_STATE rv = m_decoder->DecodeFrame2 (pData, len, data, &bufInfo);
-	if(rv != dsErrorFree)
+	if (!InitCodec(false))
 		return false;
-	if(bufInfo.iBufferStatus != 1)return false;
 
-	int planeSize = m_width * m_height;
-	int halfWidth = m_width >> 1;
-
-	for( int y = 0; y < m_height; y++ ){
-		memcpy( m_pOutBuffDec + y*m_width, data[0] + y*bufInfo.UsrData.sSystemBuffer.iStride[0], m_width );
-	}
-	for( int y = 0; y < m_height/2; y++ ){
-		memcpy( m_pOutBuffDec + planeSize + y*halfWidth, data[1] + y*bufInfo.UsrData.sSystemBuffer.iStride[1], halfWidth );
-	}
-	for( int y = 0; y < m_height/2; y++ ){
-		memcpy( m_pOutBuffDec + planeSize + (planeSize >> 2) + y*halfWidth, data[2] + y*bufInfo.UsrData.sSystemBuffer.iStride[2], halfWidth );
-	}
+	m_pPicture = av_frame_alloc();
 	
-	m_nOutBuffDec = m_height * m_width * 3 / 2;
+	/* open it */
+	if (avcodec_open2(m_pCodecContext, m_pCodec, 0) < 0) {
+		return false;
+	}
+
+	return true;
+}
+
+bool CVideoCodec::Decode(const uint8_t* pEncBuf, int encBufLen, uint8_t** ppDecBuf, int* pDecBufLen)
+{
+	m_packet.data = (uint8_t*)malloc(encBufLen);
+	memset(m_packet.data, '\0', encBufLen);
+	memcpy(m_packet.data, pEncBuf, encBufLen);
+	m_packet.size = encBufLen;
+
+	int got_picture = 0;
+	int len = avcodec_decode_video2(m_pCodecContext, m_pPicture, &got_picture, &m_packet);
+
+	if (len < 0 || !got_picture)
+	{
+		free(m_packet.data);
+		return false;
+	}
+
+	ppDecBuf[0] = m_pPicture->data[0];
+	ppDecBuf[1] = m_pPicture->data[1];
+	ppDecBuf[2] = m_pPicture->data[2];
+	/*
+	pDecBufLen[0] = m_pPicture->width;
+	pDecBufLen[1] = m_pPicture->width / 2;
+	pDecBufLen[2] = m_pPicture->width / 2;
+	*/
+	pDecBufLen[0] = m_pPicture->linesize[0];
+	pDecBufLen[1] = m_pPicture->linesize[1];
+	pDecBufLen[2] = m_pPicture->linesize[2];
+	//printf("decoded framesize - %d, %d, %d, %d, %d, %d \n",m_pPicture->width , m_pPicture->height, m_pPicture->linesize[0], m_pPicture->linesize[1],m_pPicture->linesize[2], m_pPicture->linesize[0] * m_pPicture->height + m_pPicture->linesize[1] * m_pPicture->height / 2 + m_pPicture->linesize[2] * m_pPicture->height / 2);
+	free(m_packet.data);
+	
+
+	return true;
+}
+
+bool CVideoCodec::FreeVideoCodec()
+{
+	if (!FreeCodec())
+		return false;
+
+	av_frame_free(&m_pPicture);
 
 	return true;
 }

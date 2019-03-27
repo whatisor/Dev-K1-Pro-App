@@ -8,7 +8,6 @@
 #define MAPPING_NAMEV  "SSPZCamVirtualVideo"
 #define MAPPING_NAMEV2 "SSPZCamVirtualVideo2"
 
-
 typedef signed char        int8_t;
 typedef short              int16_t;
 typedef int                int32_t;
@@ -64,6 +63,7 @@ struct share_queue {
 	queue_header* header = nullptr;
 };
 
+
 inline const char* get_mapping_name(int mode)
 {
 	switch (mode){
@@ -86,7 +86,9 @@ inline int cal_video_buffer_size(int format, int width, int height)
 	switch (format) { 
 		case AV_PIX_FMT_YUV420P:
 		case AV_PIX_FMT_NV12:
-			frame_size = width * height * 3 / 2;
+			//the resolution can be varied by the user
+			//set maximum size as frame size
+			frame_size = 1280 * 1280 * 3 / 2;//for several resolutions
 			break;
 
 		case AV_PIX_FMT_GRAY8:

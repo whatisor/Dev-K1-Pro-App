@@ -10,8 +10,7 @@ bool shared_queue_open(share_queue* q, int mode)
 	q->hwnd = OpenFileMappingA(FILE_MAP_READ, FALSE, name);
 
 	if (q->hwnd) {
-		q->header = (queue_header*)MapViewOfFile(q->hwnd, FILE_MAP_READ, 0, 0, 
-			0);
+		q->header = (queue_header*)MapViewOfFile(q->hwnd, FILE_MAP_READ, 0, 0, 0);
 	} else
 		return false;
 
