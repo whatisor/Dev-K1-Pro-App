@@ -23,7 +23,7 @@
     <ProjectGuid>{3039C3BC-682E-421E-A16A-09D5E88C94F5}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>SSPZCam</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.18362.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -44,6 +44,7 @@
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>false</WholeProgramOptimization>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
@@ -99,16 +100,19 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;SSPZCAM_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>E:\Data\opencv-3.2.0.tar\opencv-3.2.0\build\install\include;include;include/libuv/include;H264;H264\include\console\dec\inc;H264\include\console\common\inc;H264\include\api\svc;H264\include\common\inc;H264\include\codec\decoder\plus\inc;H264\include\codec\decoder\core\inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>lib;H264/lib;%(AdditionalLibraryDirectories);E:\Data\opencv-3.2.0.tar\opencv-3.2.0\build\install\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opencv_world320.lib;avcodec.lib;avutil.lib;avformat.lib;x264.lib;welsenc.lib;welsdec.lib;libssp.lib;swscale.lib;Winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -137,17 +141,17 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;SSPZCAM_EXPORTS;_WINDOWS;_USRDLL;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>PROFILING;NDEBUG;SSPZCAM_EXPORTS;_WINDOWS;_USRDLL;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>include;include/libuv/include;H264;H264\include\console\dec\inc;H264\include\console\common\inc;H264\include\api\svc;H264\include\common\inc;H264\include\codec\decoder\plus\inc;H264\include\codec\decoder\core\inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>opencv\include;include;include/libuv/include;H264;H264\include\console\dec\inc;H264\include\console\common\inc;H264\include\api\svc;H264\include\common\inc;H264\include\codec\decoder\plus\inc;H264\include\codec\decoder\core\inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>lib;H264/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>avcodec.lib;avutil.lib;avformat.lib;x264.lib;welsenc.lib;welsdec.lib;libssp.lib;swscale.lib;Winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>lib;H264/lib;%(AdditionalLibraryDirectories);opencv\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opencv_world320.lib;avcodec.lib;avutil.lib;avformat.lib;x264.lib;welsenc.lib;welsdec.lib;libssp.lib;swscale.lib;Winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>

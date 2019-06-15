@@ -23,7 +23,7 @@
     <ProjectGuid>{F8172AE8-97B2-4AD2-B27E-11943AA01169}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>SSPZCamTest</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.18362.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -101,7 +101,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>../SSPZCam/lib;../x64/Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>../SSPZCam/lib;../x64/Release;%(AdditionalLibraryDirectories);</AdditionalLibraryDirectories>
       <AdditionalDependencies>SSPZCam.lib;libssp.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -129,10 +129,13 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>../SSPZCam;../SSPZCam/include;../SSPZCam/include/libuv/include;E:\Data\opencv-3.2.0.tar\opencv-3.2.0\build\install\include;include;include/libuv/include;H264;H264\include\console\dec\inc;H264\include\console\common\inc;H264\include\api\svc;H264\include\common\inc;H264\include\codec\decoder\plus\inc;../SSPZCam/H264\include\codec\decoder\core\inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>../SSPZCam/lib;../x64/Debug;%(AdditionalLibraryDirectories);E:\Data\opencv-3.2.0.tar\opencv-3.2.0\build\install\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SSPZCam.lib;libssp.lib;%(AdditionalDependencies);kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

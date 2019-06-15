@@ -10,10 +10,13 @@ int main()
 {
 	SSPZCam *sspzcam = new SSPZCam(std::string("10.98.32.1"), std::string("10.98.32.2"));
 	sspzcam->threadLooperStart();
-	while (1)
+	int second = 0;
+	const int maxTest = 1000;
+	while (second++ <  maxTest)
 	{
-		Sleep(1);
+		Sleep(1000);
 	}
+	sspzcam->threadLooperStop();
 
 }
 
