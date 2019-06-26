@@ -17,8 +17,8 @@
 #include "CommonUtils.hpp"
 
 #define DEFAULT_DELAY (0)
-#define DEFAULT_WIDTH (1280)
-#define DEFAULT_HEIGHT (1280)
+#define DEFAULT_WIDTH (2880)
+#define DEFAULT_HEIGHT (2880)
 #define DEFAULT_FPS (30)
 #define MAX_AV_PLANES 8
 
@@ -96,7 +96,7 @@ public:
 
 		imf::SspH264Data tmp = work.front();
 		work.pop();
-		while (work.size()> 1)//delay max 1 frame
+		while (work.size()> 5)//delay max 5 frame
 		{
 			tmp = work.front();
 			work.pop();
